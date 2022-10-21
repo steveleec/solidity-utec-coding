@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 contract MiPrimerToken is ERC20, ERC20Burnable, Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
     constructor(string memory _name, string memory _symbol)
         ERC20(_name, _symbol)
@@ -28,6 +29,10 @@ contract MiPrimerToken is ERC20, ERC20Burnable, Pausable, AccessControl {
 
     function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
         _mint(to, amount);
+    }
+
+    function burn(address from, uint256 amount) public onlyRole(MINTER_ROLE) {
+        _burn(from, amount);
     }
 
     function _beforeTokenTransfer(
