@@ -19,7 +19,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-interface IToken {
+interface IIIToken {
     function transfer(address to, uint256 amount) external returns (bool);
 
     function totalSupply() external view returns (uint256);
@@ -27,11 +27,11 @@ interface IToken {
     function balanceOf(address account) external view returns (uint256);
 }
 
-contract AirdropTwo is Pausable, AccessControl {
+contract AirdropTWOoooo is Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     address addressToken; // = [reemplazar por el address token cuando esta publicado]
-    IToken token = IToken(addressToken);
+    IIIToken token = IIIToken(addressToken);
 
     struct Participante {
         address account;
