@@ -5,13 +5,6 @@ var gcf = ethers.getContractFactory;
 var adminRole =
   "0x0000000000000000000000000000000000000000000000000000000000000000";
 
-function getRole(role) {
-  return ethers.utils.keccak256(ethers.utils.toUtf8Bytes(role));
-}
-
-const minter_role = getRole("MINTER_ROLE");
-const minter_role_temp = getRole("MINTER_ROLE_TEMP");
-
 describe("Access Control", function () {
   var owner, alice, bob, carl;
   var AccessControl, accessControl;
