@@ -69,7 +69,7 @@ contract AccessControlLearning {
 
     // 4. crear modifier llamado 'onlyRole' que verifica el acceso de los roles
     //    Si falla la verificación emitir el error "Cuenta no tiene el rol necesario"
-    //    Continúa con el otro elemnto "_ñ"
+    //    Continúa con el otro elemnto "_;"
     modifier onlyRole(bytes32 _role) {
         // Roles temporales
         // require(hasRole, "Cuenta no tiene el rol necesario");

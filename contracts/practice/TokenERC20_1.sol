@@ -148,19 +148,16 @@ interface IERC20 {
     ) external returns (bool);
 }
 
-contract TokenERC20_1 is IERC20, IERC20Metadata, AccessControlLearning {
+/**is IERC20, IERC20Metadata */
+contract TokenERC20_1 {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     uint256 totalMinted;
 
-    mapping(address => uint256) private _balances;
+    // mapping de balances
 
+    // mapping de permisos
     // owner => spender => amount
-    mapping(address => mapping(address => uint256)) private _allowances;
-
-    string private name_;
-    string private symbol_;
-    uint8 private decimals_;
 
     // 3. Nombre, símbolo y decimales serán incluidos en el smart contract a través del constructor
     constructor(
@@ -168,55 +165,28 @@ contract TokenERC20_1 is IERC20, IERC20Metadata, AccessControlLearning {
         string memory _symbol,
         uint8 _decimals
     ) {
-        name_ = _name;
-        symbol_ = _symbol;
-        decimals_ = _decimals;
+        // name_ = _name;
+        // symbol_ = _symbol;
+        // decimals_ = _decimals;
     }
 
     /////////////////////////////////////////////////////////////////////////////
     ///////////     2. Heredar la interface IERC20Metadata            ///////////
     /////////////////////////////////////////////////////////////////////////////
-    function name() public view returns (string memory) {
-        return name_;
-    }
+    function name() public view returns (string memory) {}
 
-    function symbol() public view returns (string memory) {
-        return symbol_;
-    }
+    // symbol
 
-    function decimals() public view returns (uint8) {
-        return decimals_;
-    }
+    // decimals
 
     /////////////////////////////////////////////////////////////////////////////
     ///////////         1.  Heredar la interface IERC20               ///////////
     /////////////////////////////////////////////////////////////////////////////
-    function totalSupply() public view returns (uint256) {
-        return totalMinted;
-    }
+    function totalSupply() public view returns (uint256) {}
 
-    function balanceOf(address account) public view returns (uint256) {
-        return _balances[account];
-    }
+    function balanceOf(address account) public view returns (uint256) {}
 
     function transfer(address to, uint256 amount) public returns (bool) {
-        return _transfer(msg.sender, to, amount);
-    }
-
-    function _transfer(
-        address _from,
-        address _to,
-        uint256 _amount
-    ) internal returns (bool) {
-        require(_from != address(0), "Address origen es Zero");
-        require(_to != address(0), "Address destino es Zero");
-        require(_balances[_from] >= _amount, "Address origen no tiene tokens");
-
-        _balances[_from] -= _amount;
-        _balances[_to] += _amount;
-
-        emit Transfer(_from, _to, _amount);
-
         return true;
     }
 
@@ -224,23 +194,9 @@ contract TokenERC20_1 is IERC20, IERC20Metadata, AccessControlLearning {
         public
         view
         returns (uint256)
-    {
-        return _allowances[owner][spender];
-    }
+    {}
 
     function approve(address spender, uint256 amount) public returns (bool) {
-        return _approve(msg.sender, spender, amount);
-    }
-
-    function _approve(
-        address owner,
-        address spender,
-        uint256 amount
-    ) internal returns (bool) {
-        require(spender != address(0), "Spender no puede ser zero");
-        _allowances[owner][spender] = amount;
-
-        emit Approval(owner, spender, amount);
         return true;
     }
 
@@ -249,14 +205,6 @@ contract TokenERC20_1 is IERC20, IERC20Metadata, AccessControlLearning {
         address to,
         uint256 amount
     ) public returns (bool) {
-        require(
-            _allowances[from][msg.sender] >= amount,
-            "No tiene permiso para transferir"
-        );
-        _allowances[from][msg.sender] -= amount;
-
-        _transfer(from, to, amount);
-
         return true;
     }
 
@@ -265,63 +213,15 @@ contract TokenERC20_1 is IERC20, IERC20Metadata, AccessControlLearning {
     /////////////////////////////////////////////////////////////////////////////
 
     // 3. mint
-    function mint(address to, uint256 amount) public {
-        _mint(to, amount);
-    }
-
-    function _mint(address to, uint256 amount) internal {
-        require(to != address(0), "Mint a favor del address zero");
-
-        _balances[to] += amount;
-        totalMinted += amount;
-
-        emit Transfer(address(0), to, amount);
-    }
+    function mint(address to, uint256 amount) public {}
 
     // 4. burn
-    function burn(uint256 amount) public {
-        _burn(msg.sender, amount);
-    }
-
-    function _burn(address from, uint256 amount) internal {
-        require(from != address(0), "Se quema tokens de address zero");
-        require(
-            _balances[from] >= amount,
-            "Cuenta no tiene suficientes tokens"
-        );
-
-        _balances[from] -= amount;
-        totalMinted -= amount;
-
-        emit Transfer(from, address(0), amount);
-    }
+    function burn(uint256 amount) public {}
 
     // EXTRA
-    function decreaseAllowance(address spender, uint256 subtractedValue)
-        public
-        virtual
-        returns (bool)
-    {
-        uint256 currAllowance = _allowances[msg.sender][spender];
-        require(currAllowance >= subtractedValue, "Permiso debajo de zero");
-        _approve(msg.sender, spender, currAllowance - subtractedValue);
-        return true;
-    }
+    // function decreaseAllowance(address spender, uint256 subtractedValue) public returns (bool){}
 
-    function increaseAllowance(address spender, uint256 addedValue)
-        public
-        virtual
-        returns (bool)
-    {
-        uint256 currAllowance = _allowances[msg.sender][spender];
-        _approve(msg.sender, spender, currAllowance + addedValue);
-        return true;
-    }
+    // function increaseAllowance(address spender, uint256 addedValue) public  returns (bool){}
 
-    function mintProtected(address to, uint256 amount)
-        public
-        onlyRole(MINTER_ROLE)
-    {
-        _mint(to, amount);
-    }
+    // function mintProtected(address to, uint256 amount) public onlyRole(MINTER_ROLE) {}
 }
