@@ -2,7 +2,7 @@
 pragma solidity ^0.8.9;
 
 // 8.
-import "./AccessControlLearning.sol";
+// import "./AccessControlLearning.sol";
 
 /**
 
@@ -148,7 +148,7 @@ interface IERC20 {
     ) external returns (bool);
 }
 
-/**is IERC20, IERC20Metadata */
+// contract TokenERC20_1 is IERC20, IERC20Metadata, AccessControlLearning{
 contract TokenERC20_1 {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
