@@ -39,6 +39,9 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
  *  - se transfieren USDC al contrato MTPV
  *  - se calcula la cantidad de MTPV tokens a recibir por la cantidad de USDC a depositar usando la fórmula de _getTokensByChange(uint256 _usdcAmount)
  *  - se acuña la cantidad de MTPV calculados a favor del comprador
+ *
+ * El objetivo de este ejercicio es practicar llamadas intercontrato y también
+ * cómo se puede intercambiar un token por otro usando un tipo de cambio fijo o variable.
  */
 
 // Do not modify USDC
