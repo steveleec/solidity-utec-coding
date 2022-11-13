@@ -97,18 +97,15 @@ contract MiTokenParaVenta is ERC20, AccessControl {
 
     function purchaseFixRate(uint256 _usdcAmount) external {
         // verifica que caller tiene balance en USDC
-        require(
-            usdc.balanceOf(msg.sender) >= _usdcAmount,
-            "No tiene suficiente UDSC"
-        );
+        // usar usdc.balanceOf(msg.sender)
+        // require(?, "No tiene suficiente UDSC");
 
         // verifica que caller ha dado permiso al contrato MTPV
-        require(
-            usdc.allowance(msg.sender, address(this)) >= _usdcAmount,
-            "No tiene suficiente permiso"
-        );
+        // usar usdc.allowance(msg.sender, address(this))
+        // require(?, "No tiene suficiente permiso");
+
         // transfiere USDC del caller al contrato MTPV
-        usdc.transferFrom(msg.sender, address(this), _usdcAmount);
+        // usar usdc.transferFrom(from, to, amount)
 
         // acuña tokens MTPV a favor del caller
         uint256 mtpvTokens = _getTokensByRate(_usdcAmount);
@@ -117,18 +114,15 @@ contract MiTokenParaVenta is ERC20, AccessControl {
 
     function purchaseVariableRate(uint256 _usdcAmount) external {
         // verifica que caller tiene balance en USDC
-        require(
-            usdc.balanceOf(msg.sender) >= _usdcAmount,
-            "No tiene suficiente UDSC"
-        );
+        // usar usdc.balanceOf(msg.sender)
+        // require(?, "No tiene suficiente UDSC");
 
         // verifica que caller ha dado permiso al contrato MTPV
-        require(
-            usdc.allowance(msg.sender, address(this)) >= _usdcAmount,
-            "No tiene suficiente permiso"
-        );
+        // usar usdc.allowance(msg.sender, address(this))
+        // require(?, "No tiene suficiente permiso");
+
         // transfiere USDC del caller al contrato MTPV
-        usdc.transferFrom(msg.sender, address(this), _usdcAmount);
+        // usar usdc.transferFrom(from, to, amount)
 
         // acuña tokens MTPV a favor del caller
         uint256 mtpvTokens = _getTokensByChange(_usdcAmount);
@@ -144,7 +138,9 @@ contract MiTokenParaVenta is ERC20, AccessControl {
         pure
         returns (uint256)
     {
-        return _usdcAmount * exchangeRate;
+        // retorna aqui la cantidad de usdc que se deposita por el tipo de cambio exchangeRate
+        // 1 USDC = 25 MTPV
+        return 0;
     }
 
     function _getTokensByChange(uint256 _usdcAmount)
