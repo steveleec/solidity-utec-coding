@@ -1,28 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-/**
-
-2. REPETIBLE CON LÍMITE, PREMIO POR REFERIDO</u>
-
-- El usuario puede participar en el airdrop una vez por día 
-  hasta un límite de 10 veces - done 
-- Si un usuario participa del airdrop a raíz de haber sido referido, el 
-  que refirió gana 3 días adicionales para poder participar - done
-- El contrato Airdrop mantiene los tokens para repartir (no llama al `mint` ) - done 
-- El contrato Airdrop tiene que verificar que el `totalSupply` del token no 
-  sobrepase el millón
-- El método `participateInAirdrop` le permite participar por un número random de
-  tokens de 1000 - 5000 tokens - done
- */
-
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-interface IToken {
-    function transfer(address to, uint256 amount) external returns (bool);
+/**
+2. REPETIBLE CON LÍMITE, PREMIO POR REFERIDO
 
-    function totalSupply() external view returns (uint256);
+* El usuario puede participar en el airdrop una vez por día hasta un límite de 10 veces
+* Si un usuario participa del airdrop a raíz de haber sido referido, el que refirió gana 3 días adicionales para poder participar
+* El contrato Airdrop mantiene los tokens para repartir (no llama al `mint` )
+* El contrato Airdrop tiene que verificar que el `totalSupply`  del token no sobrepase el millón
+* El método `participateInAirdrop` le permite participar por un número random de tokens de 1000 - 5000 tokens
+*/
+
+interface IMiPrimerTKN {
+    function transfer(address to, uint256 amount) external returns (bool);
 
     function balanceOf(address account) external view returns (uint256);
 }
@@ -30,100 +23,96 @@ interface IToken {
 contract AirdropTwo is Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
-    address addressToken; // = [reemplazar por el address token cuando esta publicado]
-    IToken token = IToken(addressToken);
+    // instanciamos el token en el contrato
+    address miPrimerTokenAdd = 0x5FbDB2315678afecb367f032d93F642f64180aa3; // cambiar por la direccion correcta
+    IMiPrimerTKN miPrimerToken = IMiPrimerTKN(miPrimerTokenAdd);
 
-    struct Participante {
-        address account;
-        uint256 participaciones; // cantidad de veces que participo
+    struct Participant {
+        address cuentaParticipante; // eso me ayudará a saber si ya está registrado
+        uint256 participaciones;
         uint256 limiteParticipaciones;
-        uint256 ultimaVezQueParticipo; // timestamp de la ultima vez
+        uint256 ultimaVezParticipado;
     }
-    mapping(address => Participante) public participantes;
+    mapping(address => Participant) public participantes;
 
     constructor() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
     }
 
-    function participateInAirdrop(address _personaQueTeRefirio) public {
-        // validar si el usuario es nuevo o no
-        // usuario nuevo
-        if (participantes[msg.sender].account == address(0)) {
-            // se guarda esta informacion cuando el participante es nuevo
-            Participante memory participante = Participante({
-                account: msg.sender,
+    function participateInAirdrop() public {
+        _participateInAirdrop(address(0));
+    }
+
+    function participateInAirdrop(address _elQueRefirio) public {
+        _participateInAirdrop(_elQueRefirio);
+    }
+
+    function _participateInAirdrop(address _account) internal {
+        // si esto se cumple, es porque el usuario es nuevo
+        // solo funciona si es la primera vez que participa
+        // de lo contrario ya se tiene guardado el registro del usuario
+        if (participantes[msg.sender].cuentaParticipante == address(0)) {
+            // crear el registro del participante
+            Participant memory participant = Participant({
+                cuentaParticipante: msg.sender,
                 participaciones: 1,
                 limiteParticipaciones: 10,
-                ultimaVezQueParticipo: block.timestamp
+                ultimaVezParticipado: block.timestamp
             });
-            participantes[msg.sender] = participante;
+
+            // guardar el registro del participante
+            participantes[msg.sender] = participant;
         } else {
-            // vefificar que no sobrepaso su limite de participaciones
-            Participante storage _participante = participantes[msg.sender];
-            require(
-                _participante.participaciones <=
-                    _participante.limiteParticipaciones,
-                "Sobrepaso su limite de participaciones"
-            );
-            _participante.participaciones++;
+            // está reclamando por segunda vez
+            Participant memory participant = participantes[msg.sender];
 
-            // timeStamp actual se compara con el ultimaVezQueParticipo
-            // si timeStamp actual - ultimaVezQueParticipo > 1 dia => ya paso un dia
-            // si timeStamp actual - ultimaVezQueParticipo < 1 dia => esta dentro del dia
-            // si timeStamp actual < ultimaVezQueParticipo + 1 dia => esta dentro del dia
-            // si timeStamp actual > ultimaVezQueParticipo + 1 dia => ya paso mas de un dia
-            // block.timestamp =< timestamp actual
-            // 1 days => 60 * 60 * 24
+            // verificar que no se haya excedido el límite de participaciones
             require(
-                _participante.ultimaVezQueParticipo + 1 days > block.timestamp,
-                "Aun esta dentro del dia"
+                participant.participaciones < participant.limiteParticipaciones,
+                "Llegaste limite de participaciones"
             );
-            _participante.ultimaVezQueParticipo = block.timestamp;
+
+            // verificar que no se haya participado en el último día
+            // 1 days = 86400 seconds
+            require(
+                participant.ultimaVezParticipado + 1 days < block.timestamp,
+                "Ya participaste en el ultimo dia"
+            );
+
+            // actualizar el registro del participante
+            participantes[msg.sender].participaciones++;
+            participantes[msg.sender].ultimaVezParticipado = block.timestamp;
         }
 
-        uint256 tokensGanados = _getRandomEntre1000y5000();
-        // sumando el premio del usuario, no debe pasar el millon de tokens
-        uint256 totalSupplyMasPremio = token.totalSupply() + tokensGanados;
+        // calcular el número random de tokens a recibir
+        uint256 tokensToReceive = _getRadomNumber10005000();
+
+        // verificar que el Contrato Airdrop tenga los tokens para repartir
+        uint256 balTokensAirdrop = miPrimerToken.balanceOf(address(this));
         require(
-            totalSupplyMasPremio <= 10**6 * 10**18,
-            "Sobrepaso el millon de tokens en supply"
+            balTokensAirdrop >= tokensToReceive,
+            "El contrato Airdrop no tiene tokens suficientes"
         );
 
-        // address(this) => devuelve el address del smart contract actual
-        require(
-            token.balanceOf(address(this)) >= tokensGanados,
-            "Airdrop SC no tiene tokens"
-        );
+        // transferir los tokens al usuario haciendo uso de la interfaz
+        // transfer descuenta los tokens de quien llama el método
+        // en este caso el que llama es el contrato Airdrop
+        miPrimerToken.transfer(msg.sender, tokensToReceive);
 
-        token.transfer(msg.sender, tokensGanados);
+        // manejar el caso de que el usuario haya sido referido
+        if (_account != address(0)) _manejarReferido(_account);
+    }
 
-        if (
-            _personaQueTeRefirio != address(0) &&
-            _personaQueTeRefirio != msg.sender
-        ) {
-            participantes[_personaQueTeRefirio].limiteParticipaciones += 3;
+    function _manejarReferido(address _elQueRefirio) internal {
+        if (participantes[_elQueRefirio].cuentaParticipante != address(0)) {
+            participantes[_elQueRefirio].limiteParticipaciones += 3;
         }
     }
 
-    function deliverInBatch(address[] memory accounts, uint256[] memory amounts)
-        public
-        onlyRole(DEFAULT_ADMIN_ROLE)
-    {
-        uint256 _length = accounts.length;
-        for (uint256 i = 0; i < _length; i++) {
-            address _acc = accounts[i];
-            token.transfer(_acc, amounts[i]);
-        }
-    }
-
-    function _getRandomEntre1000y5000() internal view returns (uint256) {
-        return
-            (uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))) %
-                4000) +
-            1000 +
-            1;
-    }
+    ///////////////////////////////////////////////////////////////
+    ////                     HELPER FUNCTIONS                  ////
+    ///////////////////////////////////////////////////////////////
 
     function pause() public onlyRole(PAUSER_ROLE) {
         _pause();
@@ -131,5 +120,13 @@ contract AirdropTwo is Pausable, AccessControl {
 
     function unpause() public onlyRole(PAUSER_ROLE) {
         _unpause();
+    }
+
+    function _getRadomNumber10005000() internal view returns (uint256) {
+        return
+            (uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))) %
+                4000) +
+            1000 +
+            1;
     }
 }
