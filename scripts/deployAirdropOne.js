@@ -142,11 +142,11 @@ async function connectWithAbi() {
   var abi = abiCuy;
   var urlProvider = process.env.MUMBAI_TESNET_URL;
   var provider = new hre.ethers.providers.JsonRpcProvider(urlProvider);
-  // var abiSimplificado = [
-  // "function balanceOf(address owner) external returns(uint256)",
-  // ];
-  var cuyMoche = new hre.ethers.Contract(address, abi, provider);
-  // var cuyMoche = new hre.ethers.Contract(address, abiSimplificado, provider);
+  var abiSimplificado = [
+    "function balanceOf(address owner) view returns(uint256)",
+  ];
+  // var cuyMoche = new hre.ethers.Contract(address, abi, provider);
+  var cuyMoche = new hre.ethers.Contract(address, abiSimplificado, provider);
 
   // console.log(cuyMoche);
   var res = await cuyMoche.connect(owner).balanceOf(address);
