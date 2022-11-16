@@ -3,6 +3,7 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "hardhat/console.sol";
 
 /**
 <u>LISTA BLANCA Y NÚMERO ALEATORIO</u>
@@ -32,12 +33,14 @@ contract AirdropONE is Pausable, AccessControl {
 
     uint256 airdropGivenSoFar;
 
-    address miPrimerTokenAdd = 0x5FbDB2315678afecb367f032d93F642f64180aa3; // cambiar por la direccion correcta
+    address miPrimerTokenAdd;
 
     mapping(address => bool) public whiteList;
     mapping(address => bool) public haSolicitado;
 
-    constructor() {
+    constructor(address _tokenAddress) {
+        miPrimerTokenAdd = _tokenAddress;
+
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
     }
@@ -117,5 +120,9 @@ contract AirdropONE is Pausable, AccessControl {
         return
             (uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))) %
                 1000) + 1;
+    }
+
+    function setTokenAddress(address _tokenAddress) external {
+        miPrimerTokenAdd = _tokenAddress;
     }
 }
