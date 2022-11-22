@@ -29,11 +29,11 @@ contract AirdropONE is Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     uint256 public constant totalAirdropMax = 10**6 * 10**18;
-    uint256 public constant quemaTokensParticipar = 10;
+    uint256 public constant quemaTokensParticipar = 10 * 10**18;
 
     uint256 airdropGivenSoFar;
 
-    address miPrimerTokenAdd;
+    address public miPrimerTokenAdd;
 
     mapping(address => bool) public whiteList;
     mapping(address => bool) public haSolicitado;
@@ -117,9 +117,10 @@ contract AirdropONE is Pausable, AccessControl {
     }
 
     function _getRadomNumberBelow1000() internal view returns (uint256) {
-        return
-            (uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))) %
-                1000) + 1;
+        uint256 random = (uint256(
+            keccak256(abi.encodePacked(block.timestamp, msg.sender))
+        ) % 1000) + 1;
+        return random * 10**18;
     }
 
     function setTokenAddress(address _tokenAddress) external {
