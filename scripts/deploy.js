@@ -2,20 +2,22 @@ const { ethers } = require("hardhat");
 const hre = require("hardhat");
 
 async function main() {
-  const MiPrimerToken = await hre.ethers.getContractFactory("MiPrimerToken");
-  const miPrimerToken = await MiPrimerToken.deploy(
-    "Mi Primer Token",
-    "MPRMTKN"
-  );
-
+  var MiPrimerToken = await hre.ethers.getContractFactory("MiPrimerToken");
+  var name = "Mi Primer Token";
+  var symbol = "MPRTKN";
+  var miPrimerToken = await MiPrimerToken.deploy(name, symbol);
   var tx = await miPrimerToken.deployed();
   await tx.deployTransaction.wait(5);
+  console.log(
+    "Mi primer token esta publicado en el address",
+    miPrimerToken.address
+  );
 
-  console.log(`Deploy at ${miPrimerToken.address}`);
-
+  console.log("Empezo la verificaion");
+  // script para verificacion del contrato
   await hre.run("verify:verify", {
     address: miPrimerToken.address,
-    constructorArguments: ["Mi Primer Token", "MPRMTKN"],
+    constructorArguments: [name, symbol],
   });
 }
 
