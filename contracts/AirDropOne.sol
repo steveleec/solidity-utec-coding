@@ -3,7 +3,6 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "hardhat/console.sol";
 
 /**
 <u>LISTA BLANCA Y NÚMERO ALEATORIO</u>
