@@ -32,14 +32,12 @@ contract AirdropONE is Pausable, AccessControl {
 
     uint256 airdropGivenSoFar;
 
-    address miPrimerTokenAdd;
+    address miPrimerTokenAdd = 0x5FbDB2315678afecb367f032d93F642f64180aa3; // cambiar por la direccion correcta
 
     mapping(address => bool) public whiteList;
     mapping(address => bool) public haSolicitado;
 
-    constructor(address _tokenAddress) {
-        miPrimerTokenAdd = _tokenAddress;
-
+    constructor() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
     }
@@ -119,9 +117,5 @@ contract AirdropONE is Pausable, AccessControl {
         return
             (uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))) %
                 1000) + 1;
-    }
-
-    function setTokenAddress(address _tokenAddress) external {
-        miPrimerTokenAdd = _tokenAddress;
     }
 }
