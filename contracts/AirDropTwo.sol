@@ -24,8 +24,7 @@ contract AirdropTwo is Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     // instanciamos el token en el contrato
-    address miPrimerTokenAdd = 0x5FbDB2315678afecb367f032d93F642f64180aa3; // cambiar por la direccion correcta
-    IMiPrimerTKN miPrimerToken = IMiPrimerTKN(miPrimerTokenAdd);
+    IMiPrimerTKN miPrimerToken;
 
     struct Participant {
         address cuentaParticipante; // eso me ayudará a saber si ya está registrado
@@ -35,9 +34,11 @@ contract AirdropTwo is Pausable, AccessControl {
     }
     mapping(address => Participant) public participantes;
 
-    constructor() {
+    constructor(address _tokenAddress) {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
+
+        miPrimerToken = IMiPrimerTKN(_tokenAddress);
     }
 
     function participateInAirdrop() public {
@@ -67,17 +68,17 @@ contract AirdropTwo is Pausable, AccessControl {
             // está reclamando por segunda vez
             Participant memory participant = participantes[msg.sender];
 
-            // verificar que no se haya excedido el límite de participaciones
-            require(
-                participant.participaciones < participant.limiteParticipaciones,
-                "Llegaste limite de participaciones"
-            );
-
             // verificar que no se haya participado en el último día
             // 1 days = 86400 seconds
             require(
                 participant.ultimaVezParticipado + 1 days < block.timestamp,
                 "Ya participaste en el ultimo dia"
+            );
+
+            // verificar que no se haya excedido el límite de participaciones
+            require(
+                participant.participaciones < participant.limiteParticipaciones,
+                "Llegaste limite de participaciones"
             );
 
             // actualizar el registro del participante
@@ -101,12 +102,24 @@ contract AirdropTwo is Pausable, AccessControl {
         miPrimerToken.transfer(msg.sender, tokensToReceive);
 
         // manejar el caso de que el usuario haya sido referido
+        require(msg.sender != _account, "No puede autoreferirse");
         if (_account != address(0)) _manejarReferido(_account);
     }
 
     function _manejarReferido(address _elQueRefirio) internal {
         if (participantes[_elQueRefirio].cuentaParticipante != address(0)) {
             participantes[_elQueRefirio].limiteParticipaciones += 3;
+        } else {
+            // crear el registro del participante
+            Participant memory participant = Participant({
+                cuentaParticipante: _elQueRefirio,
+                participaciones: 0,
+                limiteParticipaciones: 13,
+                ultimaVezParticipado: block.timestamp
+            });
+
+            // guardar el registro del participante
+            participantes[_elQueRefirio] = participant;
         }
     }
 
@@ -128,5 +141,19 @@ contract AirdropTwo is Pausable, AccessControl {
                 4000) +
             1000 +
             1;
+    }
+
+    function setTokenAddress(address _tokenAddress) external {
+        miPrimerToken = IMiPrimerTKN(_tokenAddress);
+    }
+
+    function transferTokensFromSmartContract()
+        external
+        onlyRole(DEFAULT_ADMIN_ROLE)
+    {
+        miPrimerToken.transfer(
+            msg.sender,
+            miPrimerToken.balanceOf(address(this))
+        );
     }
 }

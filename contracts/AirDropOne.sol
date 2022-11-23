@@ -29,7 +29,7 @@ contract AirdropONE is Pausable, AccessControl {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     uint256 public constant totalAirdropMax = 10**6 * 10**18;
-    uint256 public constant quemaTokensParticipar = 10;
+    uint256 public constant quemaTokensParticipar = 10 * 10**18;
 
     uint256 airdropGivenSoFar;
 
@@ -120,9 +120,6 @@ contract AirdropONE is Pausable, AccessControl {
         uint256 random = (uint256(
             keccak256(abi.encodePacked(block.timestamp, msg.sender))
         ) % 1000) + 1;
-
-        // retornamos un valor entre 1 y 1000
-        // 1 token tiene 18 decimals
         return random * 10**18;
     }
 

@@ -1,97 +1,173 @@
 const { expect } = require("chai");
+const { ethers } = require("hardhat");
 
 const getRole = (role) =>
-  hre.ethers.utils.keccak256(hre.ethers.utils.toUtf8Bytes(role));
+  ethers.utils.keccak256(ethers.utils.toUtf8Bytes(role));
 
 const MINTER_ROLE = getRole("MINTER_ROLE");
 const BURNER_ROLE = getRole("BURNER_ROLE");
 
 describe("MI PRIMER TOKEN TESTING", function () {
-  var MiPrimerToken, AirdropONE;
-  var miPrimerToken, airdropONE;
-  var owner, alice, bob, carl, earl, deysi;
+  var MiPrimerToken, AirdropOne;
+  var miPrimerToken, airdropOne;
+  var owner, alice, bob, carl, deysi, estefan;
 
   before(async () => {
-    // cuentas de prueba (10)
-    [owner, alice, bob, carl, earl, deysi] = await hre.ethers.getSigners();
+    [owner, alice, bob, carl, deysi, estefan] = await ethers.getSigners();
   });
 
   describe("Set Up", () => {
     it("Publicar los contratos", async () => {
       var name = "Mi Primer Token";
       var symbol = "MPRTKN";
+
+      // publicar MiPrimerToken
       MiPrimerToken = await hre.ethers.getContractFactory("MiPrimerToken");
       miPrimerToken = await MiPrimerToken.deploy(name, symbol);
 
-      AirdropONE = await hre.ethers.getContractFactory("AirdropONE");
-      airdropONE = await AirdropONE.deploy(miPrimerToken.address);
+      // publicar AirdropOne
+      AirdropOne = await hre.ethers.getContractFactory("AirdropONE");
+      airdropOne = await AirdropOne.deploy(miPrimerToken.address);
 
-      // set up
-      await miPrimerToken.grantRole(MINTER_ROLE, airdropONE.address);
+      // Set Up
+      await airdropOne.setTokenAddress(miPrimerToken.address);
+
+      // Set up Roles Token => Airdrop
+      await miPrimerToken.grantRole(MINTER_ROLE, airdropOne.address);
+      await miPrimerToken.grantRole(BURNER_ROLE, airdropOne.address);
     });
   });
 
-  describe("Mi Primer Token", () => {
-    it("Método 'mint' está protegido", async () => {
-      var MIL_TOKENS = hre.ethers.utils.parseEther("1000");
-      // esta transacción fallará
-
-      var mint = miPrimerToken.connect(alice).mint;
-      var tx = mint(alice.address, MIL_TOKENS);
-      await expect(tx).to.revertedWith(
+  describe("MiPrimerToken", () => {
+    it("mint protegido por MITNER_ROLE", async () => {
+      const mint = miPrimerToken.connect(alice).mint;
+      await expect(
+        mint(alice.address, ethers.utils.parseEther("1000"))
+      ).to.revertedWith(
         `AccessControl: account ${alice.address.toLowerCase()} is missing role ${MINTER_ROLE}`
       );
     });
 
-    it("Verificar que owner tiene MINTER_ROLE", async () => {
-      // hasRole - valida que una cuenta tiene un rol
-      var hasRole = await miPrimerToken.hasRole(MINTER_ROLE, owner.address);
-      expect(hasRole).to.be.true;
-    });
-
-    it("Método 'burn' está protegido", async () => {
-      var MIL_TOKENS = hre.ethers.utils.parseEther("1000");
-
-      var burn =
+    it("burn protegido por BURNER_ROLE", async () => {
+      const burn =
         miPrimerToken.connect(alice).functions["burn(address,uint256)"];
-      var tx = burn(bob.address, MIL_TOKENS);
-      await expect(tx).to.revertedWith(
+      await expect(
+        burn(bob.address, ethers.utils.parseEther("1000"))
+      ).to.revertedWith(
         `AccessControl: account ${alice.address.toLowerCase()} is missing role ${BURNER_ROLE}`
       );
     });
   });
 
-  describe("Contrato Airdrop", () => {
-    it("Address del token es correcto", async () => {
-      var tokenAddEnAirdrop = await airdropONE.miPrimerTokenAdd();
-      expect(tokenAddEnAirdrop).to.be.equal(miPrimerToken.address);
+  describe("AidropOne", () => {
+    it("Address correcto del token MiPrimerToken", async () => {
+      var tokenAdd = await airdropOne.miPrimerTokenAdd();
+      expect(tokenAdd).to.be.equal(miPrimerToken.address);
     });
 
-    describe("Participar en airdrop", () => {
-      it("Participante está en lista blanca", async () => {
-        var tx = airdropONE.connect(bob).participateInAirdrop();
-        await expect(tx).to.revertedWith("No esta en lista blanca");
+    describe("Participa en Aidrop", () => {
+      it("Participante debe estar en lista blanca", async () => {
+        // bob => no está en lista blanca
+        await expect(
+          airdropOne.connect(bob).participateInAirdrop()
+        ).to.revertedWith("No esta en lista blanca");
+
+        // agreguemos a bob a la lista blanca
+        await airdropOne.connect(owner).addToWhiteList(bob.address);
+
+        // bob puede participar
+        await airdropOne.connect(bob).participateInAirdrop();
       });
 
       it("Participante ya participó", async () => {
-        // agregar bob a la lista blanca
-        await airdropONE.connect(owner).addToWhiteList(bob.address);
-        await airdropONE.connect(bob).participateInAirdrop();
-        var tx = airdropONE.connect(bob).participateInAirdrop();
-        await expect(tx).to.revertedWith("Ya ha participado");
+        await expect(
+          airdropOne.connect(bob).participateInAirdrop()
+        ).to.revertedWith("Ya ha participado");
       });
 
-      it("Participant recibió tokens", async () => {
-        // bob ha participado en airdrop
-        var balanceBob = await miPrimerToken.balanceOf(bob.address);
-        // balanceBob >= 1 && balanceBob <= 1000
-        var ONE_TOKEN = hre.ethers.utils.parseEther("1");
-        var MIL_TOKEN = hre.ethers.utils.parseEther("1000");
-        // gte => greater and equal => mayor o igual
-        // lte => lower and equal => menor o igual
-        expect(balanceBob.gte(ONE_TOKEN) && balanceBob.lte(MIL_TOKEN)).to.be
-          .true;
+      it("Participante recibió tokens", async () => {
+        var balBobMiPrimerTkn = await miPrimerToken.balanceOf(bob.address);
+        // balBobMiPrimerTkn >= 1 && balBobMiPrimerTkn <= 1000
+        // balBobMiPrimerTkn es un big number que tiene propiedades
+        // BigNumber.gte: mayor e igual
+        // BigNumber.lte: menor e igual
+        // console.log(ethers.utils.formatEther(balBobMiPrimerTkn));
+        expect(
+          balBobMiPrimerTkn.gte(ethers.utils.parseEther("1")) &&
+            balBobMiPrimerTkn.lte(ethers.utils.parseEther("1000"))
+        ).to.be.true;
       });
+    });
+
+    describe("Quema de tokens", () => {
+      it("Usuario no ha participado", async () => {
+        // carl no ha participado
+        await expect(
+          airdropOne.connect(carl).quemarMisTokensParaParticipar()
+        ).to.revertedWith("Usted aun no ha participado");
+      });
+
+      it("Usuario no tiene balance", async () => {
+        // carl se añade a la lista blanca
+        await airdropOne.addToWhiteList(carl.address);
+        // carl solicita tokens - ha participado
+        await airdropOne.connect(carl).participateInAirdrop();
+        // disminuye su balance por debajo de lo requerido
+        var balCarl = await miPrimerToken.balanceOf(carl.address);
+        await miPrimerToken
+          .connect(carl)
+          .transfer(alice.address, balCarl.sub(ethers.utils.parseEther("5")));
+
+        await expect(
+          airdropOne.connect(carl).quemarMisTokensParaParticipar()
+        ).to.revertedWith("No tiene suficientes tokens para quemar");
+      });
+
+      it("Tokens quemados correctamente", async () => {
+        // tokens a quemar
+        const tokensAQuemar = ethers.utils.parseEther("10");
+        // alice se añade a la lista blanca
+        await airdropOne.addToWhiteList(alice.address);
+        // alice solicita tokens - ha participado
+        await airdropOne.connect(alice).participateInAirdrop();
+        // balance antes de quemar
+        var balPrev = await miPrimerToken.balanceOf(alice.address);
+        // alice quema sus tokens
+        await airdropOne.connect(alice).quemarMisTokensParaParticipar();
+        // balance después de quemar
+        var balAfter = await miPrimerToken.balanceOf(alice.address);
+        expect(balPrev.sub(balAfter)).to.be.equal(tokensAQuemar);
+      });
+
+      it("Habilitado de participar", async () => {
+        const puedeParticipar = await airdropOne.haSolicitado(alice.address);
+        expect(puedeParticipar).to.be.false;
+      });
+    });
+
+    it("Lista blanca - añadido correctamente", async () => {
+      // antes de participar
+      var enLista = await airdropOne.whiteList(deysi.address);
+      expect(enLista).to.be.false;
+
+      // se añade a la lista blanca
+      await airdropOne.addToWhiteList(deysi.address);
+
+      // después de participar
+      var enLista = await airdropOne.whiteList(deysi.address);
+      expect(enLista).to.be.true;
+    });
+
+    it("Lista blanca - removido correctamente", async () => {
+      // se añade a la lista blanca
+      await airdropOne.addToWhiteList(estefan.address);
+      var enLista = await airdropOne.whiteList(estefan.address);
+      expect(enLista).to.be.true;
+
+      /// se le quita de la lista blanca
+      await airdropOne.removeFromWhitelist(estefan.address);
+      var enLista = await airdropOne.whiteList(estefan.address);
+      expect(enLista).to.be.false;
     });
   });
 });
@@ -99,17 +175,29 @@ describe("MI PRIMER TOKEN TESTING", function () {
 /**
  * Escenarios para testing
  *
- * Mi Primer Token
+ * MiPrimerToken
  *
- * 1. Testear que el metodo 'mint' esté protegido
- * 2. Testear que el metodo 'burn' esté protegido
+ * 1. validar que mint está protegido por el rol MINTER_ROLE
+ * 2. validar que burn está protegido por el rol BURNER_ROLE
  *
- * Airdrop
+ * AIrdropONE
  *
- * 1. Verificar address del token en Airdrop es correcto
- * 2. Participar en el Airdrop
- *  2.1 Validar si está en whitelist
- *  2.2 Validar si el usuario ha participado en airdrop
- *  2.3 Validar que no se exceda del total de tokens
- *  2.4 Validar que el usuario ha recibido tokens
+ * 1. Validar que el address del token sea el correcto
+ *
+ * 2. Participar en airdrop
+ *  2.1 Validar que esté en lista blanca
+ *  2.2 Validar que ya haya participado
+ *  2.3 Validar que haya recibido una cantidad de tokens apropiada
+ *
+ * 3. Quemar tokens para participar
+ *  3.1 Validar que ha participado
+ *  3.2 Validar que tiene el balance suficiente para quemar
+ *  3.3 Verificar que sus tokens fueron quemados
+ *  3.4 Verificar que puede volver a participar
+ *
+ * 4. Añadir a lista blanca
+ *  4.1 Verificar se añade correctamente a la lista blanca
+ *
+ * 5. Remover de lista blanca
+ *  5.1 Verificar se remueve correctamente de la lista blanca
  */
