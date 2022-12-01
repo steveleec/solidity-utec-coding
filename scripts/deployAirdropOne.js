@@ -1,6 +1,6 @@
 const hre = require("hardhat");
-const abiCuy = require("./abiCuy");
 require("dotenv").config();
+const abiCuy = require("./abiCuy");
 
 function getRole(role) {
   return hre.ethers.utils.keccak256(hre.ethers.utils.toUtf8Bytes(role));
