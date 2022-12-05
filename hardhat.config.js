@@ -14,8 +14,16 @@ module.exports = {
       gas: "auto", // limite de gas a gastar (gwei)
       gasPrice: "auto", // precio del gas a pagar (gwei)
     },
+    goerli: {
+      url: process.env.GOERLI_TESNET_URL,
+      accounts: [process.env.ADMIN_ACCOUNT_PRIVATE_KEY],
+      timeout: 0,
+      gas: "auto",
+      gasPrice: "auto",
+    },
   },
   etherscan: { apiKey: process.env.POLYGONSCAN_API_KEY },
+  // etherscan: { apiKey: process.env.ETHERSCAN_API_KEY },
 };
 
 // 1,000,000,000 gwei in one ether

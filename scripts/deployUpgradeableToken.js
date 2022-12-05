@@ -39,8 +39,9 @@ async function upgrade() {
   console.log("El Proxy address es (V2):", upgradeableToken2.address);
   console.log("El Implementation address es (V2):", implmntAddress);
 }
-// main()
-upgrade().catch((error) => {
+
+// upgrade();
+main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
