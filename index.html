@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+</head>
+
+<body>
+    <div>
+        <button id="connect">Conectar con Metamask</button>
+    </div>
+
+    </br>
+
+    <h1>CONTRATO TOKEN</h1>
+
+    <div>
+        <label for="approveAmount">Approve a favor del SC Airdrop</label>
+        <input type="text" id="approveAmount" name="approveAmount">
+        <button id="approveButton">Approve</button>
+    </div>
+
+    </br>
+
+    <h1>CONTRATO AIRDROP</h1>
+    <h2>Como Participant</h2>
+
+    <div>
+        <label for="participateAirdrop">Participate in Airdrop</label>
+        <button id="participateAirdrop">Participate</button>
+        </br>
+        <span id="errorAirdrop" style="color: red;"></span>
+    </div>
+
+    </br>
+
+    <div>
+        <label for="quemarTokens">Quemar Mis Tokens</label>
+        <button id="quemarTokens">Quemar</button>
+        </br>
+        <span id="errorQuemar" style="color: red;"></span>
+    </div>
+
+    </br>
+
+    <h2>Como Owner</h2>
+
+    </br>
+
+    <div>
+        <label for="addWhiteList">Añadir a la lista blanca</label>
+        <input type="text" id="addWhiteList" name="addWhiteList">
+        <button id="addButton">Añadir cuenta</button>
+        <span id="errorWhitelist" style="color: red;"></span>
+    </div>
+
+    </br>
+
+    <div>
+        <label for="removeWhitelist">Quitar de lista blanca</label>
+        <input type="text" id="removeWhitelist" name="addWhiteList">
+        <button id="removeButton">Quitar cuenta</button>
+        <span id="errorQuitarWhitelist" style="color: red;"></span>
+    </div>
+</body>
+
+</html>
