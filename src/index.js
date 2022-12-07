@@ -6,6 +6,7 @@ import {
   quemarMisTokensParaParticipar,
   addToWhiteList,
   removeFromWhitelist,
+  connectToMumbai,
 } from "utec-smart-contracts";
 import tokenAbi from "../artifacts/contracts/TokenUpgradeableAirdrop.sol/TokenUpgradeableAirdrop.json";
 import airdropAbi from "../artifacts/contracts/AirdropONEUpgradeable.sol/AirdropONEUpgradeable.json";
@@ -48,6 +49,11 @@ function setUpListeners() {
       signer = provider.getSigner(account);
       window.signer = signer;
     }
+  });
+
+  var bttn = document.getElementById("switch");
+  bttn.addEventListener("click", async function () {
+    await connectToMumbai();
   });
 
   // APROVAR TOKENS
