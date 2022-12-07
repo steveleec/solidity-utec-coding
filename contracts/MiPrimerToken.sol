@@ -31,8 +31,8 @@ contract MiPrimerToken is ERC20, ERC20Burnable, Pausable, AccessControl {
         _mint(to, amount);
     }
 
-    function burn(address to, uint256 amount) public onlyRole(BURNER_ROLE) {
-        _burn(to, amount);
+    function burn(address from, uint256 amount) public onlyRole(BURNER_ROLE) {
+        _burn(from, amount);
     }
 
     function _beforeTokenTransfer(
