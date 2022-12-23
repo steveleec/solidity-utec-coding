@@ -22,8 +22,8 @@ module.exports = {
       gasPrice: "auto",
     },
   },
-  etherscan: { apiKey: process.env.POLYGONSCAN_API_KEY },
-  // etherscan: { apiKey: process.env.ETHERSCAN_API_KEY },
+  // etherscan: { apiKey: process.env.POLYGONSCAN_API_KEY },
+  etherscan: { apiKey: process.env.ETHERSCAN_API_KEY },
 };
 
 // 1,000,000,000 gwei in one ether
