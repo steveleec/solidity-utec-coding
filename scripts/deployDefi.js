@@ -80,15 +80,6 @@ async function initSCs() {
   return [tokenA, tokenB, deFi, owner, alice];
 }
 
-// async function addLiquidity() {
-//   var [tokenA, tokenB, deFi, owner, alice] = await initSCs();
-
-//   // await execute(owner, tokenA, "mint", [deFi.address, pEth("25000")], "mintA");
-//   // await execute(owner, tokenB, "mint", [deFi.address, pEth("1000")], "mintB");
-//   var [txHash] = await execute(owner, deFi, "addLiquidity", [], "df");
-//   console.log(txHash);
-// }
-
 async function upgrade() {
   const DeFi = await hre.ethers.getContractFactory("DeFi");
   var defi = await upgrades.upgradeProxy(DefiAddress, DeFi);
