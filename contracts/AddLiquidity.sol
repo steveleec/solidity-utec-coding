@@ -3,7 +3,6 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-// Goerli: 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D
 interface IUniswapV2Router02 {
     function addLiquidity(
         address tokenA,
@@ -17,8 +16,14 @@ interface IUniswapV2Router02 {
     ) external returns (uint amountA, uint amountB, uint liquidity);
 }
 
-// GOerli: 0xEb8747081751E14D3756eae5Ec302AEe113FFaA2
-contract AddLiquidity {
+interface IUniswapV2Factory {
+    function getPair(
+        address tokenA,
+        address tokenB
+    ) external view returns (address pair);
+}
+
+contract LiquidityPool {
     // Router Goerli
     address routerAddress = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
     IUniswapV2Router02 router = IUniswapV2Router02(routerAddress);
@@ -37,11 +42,13 @@ contract AddLiquidity {
         uint _amountBMin,
         address _to,
         uint _deadline
-    ) external {
-        tokenA.approve(routerAddress, _amountAMin);
-        tokenB.approve(routerAddress, _amountBMin);
+    ) external returns (uint amountA, uint amountB, uint liquidity) {
+        // Approve the router to spend the token
+        tokenA.approve(routerAddress, _amountADesired);
+        tokenB.approve(routerAddress, _amountBDesired);
 
-        (uint amountA, uint amountB, uint liquidity) = router.addLiquidity(
+        // Add liquidity
+        (amountA, amountB, liquidity) = router.addLiquidity(
             _tokenA,
             _tokenB,
             _amountADesired,

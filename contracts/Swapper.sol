@@ -21,6 +21,7 @@ interface IUniswapV2Router02 {
     ) external returns (uint[] memory amounts);
 }
 
+// Goerli: 0xE65D464aC7D3C195e18413EbEA7f7a989449Aa83
 contract Swapper {
     // Router Goerli
     address routerAddress = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
@@ -31,15 +32,12 @@ contract Swapper {
     function swapTokensForExactTokens(
         uint amountOut,
         uint amountInMax,
-        address[] calldata path, // [tokenB, tokenA]
+        address[] calldata path,
         address to,
         uint deadline
     ) external {
-        // transferFrom
-        // usuario deposita USDC => Uniswap => contrato recibe MiPrimerToken
-
-        address tokenAdd = path[0];
-        IERC20(tokenAdd).approve(routerAddress, amountInMax);
+        address tokenAAdd = path[0];
+        IERC20(tokenAAdd).approve(routerAddress, amountInMax);
 
         uint[] memory amounts = router.swapTokensForExactTokens(
             amountOut,
@@ -48,18 +46,19 @@ contract Swapper {
             to,
             deadline
         );
+
         emit SwapAmounts(amounts);
     }
 
     function swapExactTokensForTokens(
         uint amountIn,
         uint amountOutMin,
-        address[] calldata path, // [tokenB, tokenA]
+        address[] calldata path,
         address to,
         uint deadline
     ) external {
-        address tokenAdd = path[0];
-        IERC20(tokenAdd).approve(routerAddress, amountIn);
+        address tokenAAdd = path[0];
+        IERC20(tokenAAdd).approve(routerAddress, amountIn);
 
         uint[] memory amounts = router.swapExactTokensForTokens(
             amountIn,
@@ -68,6 +67,7 @@ contract Swapper {
             to,
             deadline
         );
+
         emit SwapAmounts(amounts);
     }
 }

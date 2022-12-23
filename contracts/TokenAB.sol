@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-// Goerli: 0xe8e5087004C10a99FB1a13E7C48Ca4a1f3bEf8c9
 contract TokenA is ERC20, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
@@ -20,7 +19,6 @@ contract TokenA is ERC20, AccessControl {
     }
 }
 
-// Goerli: 0xEBabd70215B973930663b5E259870AB8efBA5886
 contract TokenB is ERC20, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 

@@ -1,0 +1,1073 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0x6adaBFE862850E1034787Bb395E089d50Ce63BB6",
+      "txHash": "0xaeb4a2da671604b6cee323420d64887d9c7b6fb985fa239476c88d57df564bb1",
+      "kind": "uups"
+    },
+    {
+      "address": "0x7B8086c69A56cB60EBe6Cc388d6B7049915F1785",
+      "txHash": "0x83e84e1f0735f824b799b76ab91f7505be9d9d72ad67ecfc19bf952c92dca9dc",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "8746f60800abcb346e2b5d74270bf2d05693bb98ec5d85f550348a8790c901c9": {
+      "address": "0x0cad8dc7b2eAA7d536DF028c4A2A71c56B85f5b4",
+      "txHash": "0xbe99245a9c939a360c956a8dd2122c3e7be715de41c230d5fc2def28ddde168d",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:103"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4264",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:104"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:107"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4315",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:108"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:111"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:112"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4264": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4315": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "7209968cf085dc0942064da786bcb521d0c08a3660b61812936d3866a5601484": {
+      "address": "0xB3532461BA5Aa11A1B1f9A623fD2889c502dab35",
+      "txHash": "0x0f1523652b02b9128c82a2dd03ce62ff1d12d9d5ec8161e48d00ef2a64e6415e",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:105"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4264",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:106"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:109"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4315",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:110"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:113"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:116"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4264": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4315": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "2d3fce71e5e2502d41437afb910ee0bad46069286db3729ca43e1b87b54d917f": {
+      "address": "0xA597a2710EaC925d738D65167D90D2228cD04400",
+      "txHash": "0x041b865563c8205585f2330459f59223004f2f1307e8cb291d3f585cfbfc4699",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:105"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4264",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:106"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:109"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4315",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:110"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:113"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:116"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4264": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4315": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "d6509646ff3c64aa5122e2464842ef87d942ea14c3526effe3aaf0ec1558d52f": {
+      "address": "0xa7F6528c9D98CbDa86022A46899178a136F7D3e8",
+      "txHash": "0x370bec774fed1d037173dc25e85e44e7896bf92d8995d489a16cc30d65c549d7",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:113"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4281",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:117"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4332",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:118"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:121"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:122"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:124"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4281": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4332": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "30918b06f0870f4d17d9d8cfe3902780e62d41ba01d210f2ae21c95f7ecd2195": {
+      "address": "0x03218a473091CCb9aB7F88CE1843ce5AA942dc1A",
+      "txHash": "0xa5111e0feaa71e3bde3681e66ad120eba4dd670c8f73282bb40e7b44a26ff83b",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:113"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4281",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:117"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4332",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:118"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:121"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:122"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:124"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4281": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4332": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "362df81e5b329c757fc1ec9cbf1eb85f69f137a42273d2c99236133ee473df9c": {
+      "address": "0xA22f3A4965A75ee667A552174987543a57B4FfCE",
+      "txHash": "0x9eda9646b8415dfca3b59138df7f76710478a8f220c4d13837b4fc79efef67a9",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:113"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4281",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:117"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4332",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:118"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:121"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:122"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:124"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4281": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4332": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "bc1ca8369187ef54bf6ffcdbb8022db782cf5e03af43205c03043d8783e28cce": {
+      "address": "0xC3e6C1706A11D1bcE8f08C9276B276E643e8fDa0",
+      "txHash": "0x5eb9b9ba546dac337c2aca710a7c7b53b41b049ee0f49514801fcc59043a9bb6",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:113"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4281",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:117"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4332",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:118"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:121"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:122"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:124"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4281": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4332": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "5cafcfb46e69b6fc112daa434f573e80b71cce3b1a09b90a822152768cc3d7c0": {
+      "address": "0xBC2f465269c52Be95621EB6c1FEDdd3b4b41c26c",
+      "txHash": "0xe267421c5bdf5ed3269d33316cb07d1f979eda7329ef31ddeb65762972dee372",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "routerAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:113"
+          },
+          {
+            "label": "router",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_contract(IUniswapRouter02)4281",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:114"
+          },
+          {
+            "label": "factoryAddress",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:117"
+          },
+          {
+            "label": "factory",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_contract(IUniswapV2Factory)4332",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:118"
+          },
+          {
+            "label": "tokenA",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:121"
+          },
+          {
+            "label": "tokenB",
+            "offset": 0,
+            "slot": "106",
+            "type": "t_contract(IERC20)3768",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:122"
+          },
+          {
+            "label": "pairAddress",
+            "offset": 0,
+            "slot": "107",
+            "type": "t_address",
+            "contract": "DeFi",
+            "src": "contracts/DeFi.sol:124"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)3768": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapRouter02)4281": {
+            "label": "contract IUniswapRouter02",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IUniswapV2Factory)4332": {
+            "label": "contract IUniswapV2Factory",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
